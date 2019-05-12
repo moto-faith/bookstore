@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xupeng.edu.mapper.OrderItemMapper" >
+
+
+    <delete id="delOrderItemByOrderId">
+        SET FOREIGN_KEY_CHECKS=0;
+        delete from orderitem where order_id = #{orderId};
+        SET FOREIGN_KEY_CHECKS=1;
+    </delete>
+
+    <insert id="addOrderItems" parameterType="java.util.List">
+        insert into orderitem (order_id,product_id,buynum) values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.order.id},#{item.product.id},#{item.buynum})
+        </foreach>
+    </insert>
+
+    <select id="findOrderItemByOrderId" resultType="com.xupeng.edu.model.OrderItem">
+        select oi.buynum,oi.product_id productId,p.name productName,p.price productPrice
+        from orderitem oi,products p
+        where oi.product_id = p.id and order_id=#{orderId};
+    </select>
+
+
+</mapper>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xupeng.edu.mapper.OrderMapper" >
+
+    <insert id="add"  parameterType="com.xupeng.edu.model.Order">
+        insert into orders values(#{id},#{money},#{receiverAddress},#{receiverName},#{receiverPhone},#{paystate},#{ordertime},#{user.id})
+    </insert>
+
+    <select id="findOrdersByUserId"  resultType="com.xupeng.edu.model.Order">
+        select * from orders where user_id =#{id}
+    </select>
+
+
+    <select id="findOrderByOrderId" resultType="com.xupeng.edu.model.Order">
+        select * from orders where id = #{orderId}
+    </select>
+
+
+
+    <update id="payByOrderId"  parameterType="String">
+        update orders set paystate = 1 where id = #{orderId}
+    </update>
+
+    <delete id="delOrderByOrderId" parameterType="String">
+        SET FOREIGN_KEY_CHECKS=0;
+        delete from orders where id = #{orderId};
+        SET FOREIGN_KEY_CHECKS=1;
+    </delete>
+
+
+</mapper>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xupeng.edu.mapper.UserMapper" >
+
+    <insert id="addUser" parameterType="com.xupeng.edu.model.User">
+        insert into user (username,PASSWORD,gender,email,telephone,introduce,activeCode,state,role,registTime)
+        values(#{username},#{password},#{gender},#{email},#{telephone},#{introduce},#{activeCode},#{state},#{role},#{registTime})
+    </insert>
+    <select id="findUserByActiveCode" parameterType="String" resultType="com.xupeng.edu.model.User">
+        select * from user where activeCode = #{activeCode}
+    </select>
+    <update id="updateState" parameterType="String">
+        update user set state = 1 where activeCode =  #{activeCode}
+    </update>
+    <update id="modifyUserInfo" parameterType="com.xupeng.edu.model.User">
+        update user set password = #{password},gender = #{gender},telephone = #{telephone} where id = #{id}
+    </update>
+    <select id="findUserByUsernameAndPassword" resultType="com.xupeng.edu.model.User">
+        select * from user where username = #{arg0} and password = #{arg1}
+    </select>
+    <select id="findUserById" resultType="com.xupeng.edu.model.User" parameterType="String">
+        select * from user where id = #{id}
+    </select>
+
+
+
+
+</mapper>
